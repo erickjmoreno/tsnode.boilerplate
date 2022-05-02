@@ -1,3 +1,9 @@
-import { test } from './mock';
+import getAccessToken from './common/battleNet/getAccessToken';
 
-test();
+const init = async () => {
+  const accessToken = getAccessToken();
+
+  console.log(accessToken);
+};
+
+init();

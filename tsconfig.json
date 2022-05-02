@@ -1,7 +1,6 @@
 {
-  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-		"outDir": "dist",
+    "outDir": "dist",
 		"target": "ESNext",
 		"allowJs": true,
     "skipLibCheck": true,
@@ -15,6 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "rootDir": ".",
 		"baseUrl": ".",
     "paths": {
       "@configs/*": ["src/configs/*"],
@@ -23,9 +23,14 @@
       "@types/*": ["src/types/*"],
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/utils/*"],
+      "@common/*": ["src/common/*"],
       "@mocks/*": ["__mocks__/*"]
-    }
+    },
+    "lib": ["es2021"],
 	},
   "include": ["src", "__mocks__"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
 }
