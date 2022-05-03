@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { bnetAuthUrl } from '../../constants/.';
+import { bnetBaseUrl } from '@constants/.';
 
-const instance = axios.create({
-  baseURL: bnetAuthUrl,
+const battleNet = axios.create({
+  baseURL: bnetBaseUrl,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
 });
 
-export default instance;
+export default battleNet;

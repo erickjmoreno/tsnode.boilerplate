@@ -1,9 +1,10 @@
-import getAccessToken from './common/battleNet/getAccessToken';
+import { rosterRef } from '@common/firebase';
 
 const init = async () => {
-  const accessToken = getAccessToken();
-
-  console.log(accessToken);
+  rosterRef.onSnapshot(async (doc) => {
+    const rosterData = doc.data();
+    console.log(rosterData);
+  });
 };
 
 init();

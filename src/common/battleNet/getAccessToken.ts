@@ -1,18 +1,13 @@
 import { isBefore } from 'date-fns';
-import { clientID, clientSecret } from '../../configs/env';
-import { bnetAuthUrl, redisKeys } from '../../constants/.';
-import redisClient from '../redis';
-import battleNetClient from './client';
+import { clientID, clientSecret } from '@configs/env';
+import { bnetAuthUrl, redisKeys } from '@constants/.';
+import redisClient from '@common/redis';
+import battleNet from './client';
 
-const clientPayload = {
-  grant_type: 'client_credentials',
-  client_id: clientID,
-  client_secret: clientSecret,
-};
+const clientPayload = `grant_type=client_credentials&client_id=${clientID}&client_secret=${clientSecret}`;
 
 interface Credentials {
-  expires_in: string;
-  token: string;
+  data: { expires_in: string; access_token: string };
 }
 
 const getAccessToken = async (): Promise<string> => {
@@ -27,13 +22,13 @@ const getAccessToken = async (): Promise<string> => {
     return token;
   }
 
-  const credentials: Credentials = await battleNetClient.post(bnetAuthUrl, clientPayload);
-  const expiration = new Date().setSeconds(+credentials.expires_in);
+  const { data: credentials }: Credentials = await battleNet.post(bnetAuthUrl, clientPayload);
+  now.setSeconds(+credentials.expires_in);
 
-  redisClient.set(redisKeys.bnet.token, credentials.token);
-  redisClient.set(redisKeys.bnet.expiry, expiration);
+  redisClient.set(redisKeys.bnet.token, credentials.access_token);
+  redisClient.set(redisKeys.bnet.expiry, now.toISOString());
 
-  return credentials.token;
+  return credentials.access_token;
 };
 
 export default getAccessToken;
