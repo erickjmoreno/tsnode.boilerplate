@@ -30,6 +30,7 @@
       "@services/*": ["src/services/*"],
       "@routes/*": ["src/routes/*"],
       "@middlewares/*": ["src/middlewares/*"],
+      "@common/*": ["src/common/*"],
       "@mocks/*": ["__mocks__/*"]
     }
 	},
