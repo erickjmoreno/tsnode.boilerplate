@@ -1,3 +1,3 @@
-import { test } from './mock';
+import { test } from '@utils/placeholderFile';
 
 test();
